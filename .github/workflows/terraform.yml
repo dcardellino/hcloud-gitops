@@ -1,4 +1,4 @@
-name: Terraform Plan
+name: Terraform
 
 on:
   push:
@@ -14,7 +14,6 @@ on:
 
 env:
   TF_IN_AUTOMATION: "True"
-  TF_LOG: INFO
   HCLOUD_TOKEN: ${{ secrets.HCLOUD_TOKEN }}
   AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
   AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
