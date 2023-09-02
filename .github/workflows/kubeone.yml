@@ -46,7 +46,7 @@ jobs:
 
       - name: Terraform output
         id: output
-        run: terraform -chdir output -json > ../kubeone/terraform.tfjson
+        run: terraform -chdir output -json > kubeone/terraform.tfjson
 
       - name: DEBUG
         run: ls -lah kubeone
