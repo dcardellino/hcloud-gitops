@@ -1,6 +1,6 @@
 resource "hcloud_network" "network" {
   name     = var.cluster_name
-  ip_range = "172.64.0.0/22"
+  ip_range = "172.18.64.0/22"
 }
 
 resource "hcloud_firewall" "cluster" {
@@ -29,7 +29,7 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "tcp"
     port        = "any"
     source_ips = [
-      "172.64.0.0/22",
+      "172.18.64.0/22",
     ]
   }
 
@@ -39,7 +39,7 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "udp"
     port        = "any"
     source_ips = [
-      "172.64.0.0/22",
+      "172.18.64.0/22",
     ]
   }
 
@@ -68,7 +68,7 @@ resource "hcloud_network_subnet" "kubeone" {
   network_id   = hcloud_network.network.id
   type         = "server"
   network_zone = var.network_zone
-  ip_range     = "172.64.0.0/22"
+  ip_range     = "172.18.64.0/22"
 }
 
 resource "hcloud_server_network" "control_plane" {
