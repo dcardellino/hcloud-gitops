@@ -11,6 +11,7 @@ on:
       - main
     paths:
       - kubeone/**
+  workflow_dispatch:
 
 env:
   TF_IN_AUTOMATION: "True"
@@ -59,3 +60,6 @@ jobs:
       - uses: webfactory/ssh-agent@v0.7.0
         with:
           ssh-private-key: ${{ secrets.SSH_PRIVATE_KEY }}
+
+      - name: DEBUG
+        run: ls -alh
