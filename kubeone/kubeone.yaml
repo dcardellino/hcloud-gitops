@@ -1,0 +1,27 @@
+apiVersion: kubeone.k8c.io/v1beta2
+kind: KubeOneCluster
+
+versions:
+  kubernetes: v1.26.4
+
+cloudProvider:
+  hetzner: {}
+  external: true
+
+containerRuntime:
+  containerd: {}
+
+clusterNetwork:
+  cni:
+    cilium:
+      enableHubble: true
+      kubeProxyReplacement: strict
+  kubeProxy:
+    skipInstallation: true
+features:
+  encryptionProviders:
+    enable: true
+addons:
+  enable: true
+  addons:
+    - name: default-storage-class
