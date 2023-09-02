@@ -1,5 +1,5 @@
 locals {
-  cluster_name = "ctech-k8s-"
+  cluster_name       = "ctech-k8s-"
   kubeapi_endpoint   = var.disable_kubeapi_loadbalancer ? hcloud_server_network.control_plane[0].ip : hcloud_load_balancer.load_balancer[0].ipv4
   loadbalancer_count = var.disable_kubeapi_loadbalancer ? 0 : 1
   image              = var.image == "" ? var.image_references[var.os].image_name : var.image

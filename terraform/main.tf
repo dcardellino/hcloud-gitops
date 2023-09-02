@@ -102,6 +102,7 @@ resource "hcloud_server" "control_plane" {
   labels = {
     "kubeone_cluster_name" = var.cluster_name
     "role"                 = "api"
+    "managedby"            = "terraform"
   }
 }
 
