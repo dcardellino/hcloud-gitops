@@ -55,4 +55,9 @@ jobs:
         run: curl -sfL get.kubeone.io | sh
 
       - name: KubeOne Version
+        working-directory: kubeone
         run: kubeone version
+
+      - name: KubeOne apply
+        working-directory: kubeone
+        run: kubeone apply --manifest kubeone.yaml --tfjson terraform.tfjson --auto-approve --upgrade-machine-deployments --verbose
