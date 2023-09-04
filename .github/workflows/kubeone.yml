@@ -50,3 +50,9 @@ jobs:
 
       - name: DEBUG
         run: ls -lah kubeone
+
+      - name: Install KubeOne
+        run: curl -sfL get.kubeone.io | sh
+
+      - name: KubeOne Version
+        run: kubeone version
