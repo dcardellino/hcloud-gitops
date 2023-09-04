@@ -49,19 +49,8 @@ jobs:
         id: output
         run: terraform -chdir=terraform output -json > kubeone/terraform.tfjson
 
-      - name: DEBUG
-        run: ls -lah kubeone
-
       - name: Install KubeOne
         run: curl -sfL get.kubeone.io | sh
-
-      - name: KubeOne Version
-        working-directory: kubeone
-        run: kubeone version
-
-      - name: DEBUG2
-        working-directory: kubeone
-        run: cat terraform.tfjson
 
       - name: KubeOne apply
         working-directory: kubeone
