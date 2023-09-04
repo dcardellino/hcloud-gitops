@@ -58,6 +58,10 @@ jobs:
         working-directory: kubeone
         run: kubeone version
 
+      - name: DEBUG2
+        working-directory: kubeone
+        run: cat terraform.tfjson
+
       - name: KubeOne apply
         working-directory: kubeone
         run: kubeone apply --manifest kubeone.yaml --tfjson terraform.tfjson --auto-approve --upgrade-machine-deployments --verbose
