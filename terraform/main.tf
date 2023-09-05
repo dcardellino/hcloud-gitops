@@ -60,8 +60,8 @@ resource "hcloud_firewall" "cluster" {
 }
 
 resource "hcloud_server_network" "control_plane" {
-  count     = var.control_plane_vm_count
-  server_id = element(hcloud_server.control_plane[*].id, count.index)
+  count      = var.control_plane_vm_count
+  server_id  = element(hcloud_server.control_plane[*].id, count.index)
   network_id = data.hcloud_network.network.id
 }
 
@@ -90,7 +90,7 @@ resource "hcloud_server" "control_plane" {
 
   network {
     network_id = data.hcloud_network.network.id
-    ip = cidrhost("172.18.64.0/22", count.index +3)
+    ip         = cidrhost("172.18.64.0/22", count.index + 3)
   }
 
   ssh_keys = [
@@ -107,8 +107,8 @@ resource "hcloud_server" "control_plane" {
 resource "hcloud_load_balancer_network" "load_balancer" {
   count = local.loadbalancer_count
 
-  load_balancer_id = hcloud_load_balancer.load_balancer[0].id
-  network_id = data.hcloud_network.network.id
+  load_balancer_id        = hcloud_load_balancer.load_balancer[0].id
+  network_id              = data.hcloud_network.network.id
   enable_public_interface = false
 }
 
