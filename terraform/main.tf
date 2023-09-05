@@ -1,8 +1,3 @@
-resource "hcloud_network" "network" {
-  name     = var.cluster_name
-  ip_range = "172.18.64.0/22"
-}
-
 resource "hcloud_firewall" "cluster" {
   name = "${var.cluster_name}-fw"
 
@@ -19,7 +14,7 @@ resource "hcloud_firewall" "cluster" {
     direction   = "in"
     protocol    = "icmp"
     source_ips = [
-      "0.0.0.0/0",
+      "172.18.64.0/22",
     ]
   }
 
@@ -49,7 +44,7 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "tcp"
     port        = "22"
     source_ips = [
-      "0.0.0.0/0",
+      "172.18.64.0/22",
     ]
   }
 
@@ -59,22 +54,15 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "tcp"
     port        = "30000-32767"
     source_ips = [
-      "0.0.0.0/0",
+      "172.18.64.0/22",
     ]
   }
-}
-
-resource "hcloud_network_subnet" "kubeone" {
-  network_id   = hcloud_network.network.id
-  type         = "server"
-  network_zone = var.network_zone
-  ip_range     = "172.18.64.0/22"
 }
 
 resource "hcloud_server_network" "control_plane" {
   count     = var.control_plane_vm_count
   server_id = element(hcloud_server.control_plane[*].id, count.index)
-  subnet_id = hcloud_network_subnet.kubeone.id
+  network_id = data.hcloud_network.network.id
 }
 
 resource "hcloud_placement_group" "control_plane" {
@@ -93,7 +81,17 @@ resource "hcloud_server" "control_plane" {
   image              = local.image
   location           = var.datacenters[count.index]
   placement_group_id = hcloud_placement_group.control_plane.id
-  # user_data          = var.user_data
+  user_data          = file("${path.module}/files/user-data.yml")
+
+  public_net {
+    ipv4_enabled = false
+    ipv6_enabled = false
+  }
+
+  network {
+    network_id = data.hcloud_network.network.id
+    ip = cidrhost("172.18.64.0/22", count.index +3)
+  }
 
   ssh_keys = [
     data.hcloud_ssh_key.kubeone.id,
@@ -110,7 +108,8 @@ resource "hcloud_load_balancer_network" "load_balancer" {
   count = local.loadbalancer_count
 
   load_balancer_id = hcloud_load_balancer.load_balancer[0].id
-  subnet_id        = hcloud_network_subnet.kubeone.id
+  network_id = data.hcloud_network.network.id
+  enable_public_interface = false
 }
 
 resource "hcloud_load_balancer" "load_balancer" {

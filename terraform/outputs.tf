@@ -8,7 +8,7 @@ output "kubeone_api" {
 }
 
 output "ssh_commands" {
-  value = formatlist("ssh ${local.ssh_username}@%s", hcloud_server.control_plane[*].ipv4_address)
+  value = formatlist("ssh ${local.ssh_username}@%s", hcloud_server_network.control_plane[*].ip)
 }
 
 output "kubeone_hosts" {
@@ -20,8 +20,7 @@ output "kubeone_hosts" {
       cluster_name     = var.cluster_name
       cloud_provider   = "hetzner"
       private_address  = hcloud_server_network.control_plane[*].ip
-      public_address   = hcloud_server.control_plane[*].ipv4_address
-      network_id       = hcloud_network.network.id
+      network_id       = data.hcloud_network.network.name
       ssh_agent_socket = "env:SSH_AUTH_SOCK"
       ssh_port         = 22
       ssh_user         = local.ssh_username

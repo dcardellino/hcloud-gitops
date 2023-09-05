@@ -1,0 +1,30 @@
+#cloud-config
+package_update: true
+package_upgrade: true
+write_files:
+  - path: /etc/networkd-dispatcher/routable.d/50-masq
+    owner: root:root
+    permissions: '0755'
+    content: |
+      #!/bin/sh
+      /sbin/ip route add default via 172.18.64.1
+  - path: /etc/systemd/resolved.conf
+    owner: root:root
+    permissions: '0644'
+    content: |
+      [Resolve]
+      DNS=185.12.64.2 185.12.64.1
+      #FallbackDNS=
+      #Domains=
+      #DNSSEC=no
+      #DNSOverTLS=no
+      #MulticastDNS=no
+      #LLMNR=no
+      #Cache=no-negative
+      #CacheFromLocalhost=no
+      #DNSStubListener=yes
+      #DNSStubListenerExtra=
+      #ReadEtcHosts=yes
+      #ResolveUnicastSingleLabel=no
+runcmd:
+  - systemctl restart systemd-resolved.service

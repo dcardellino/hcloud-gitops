@@ -1,4 +1,0 @@
-write_files:
-  - path: /etc/ssh/sshd_config.d/00-port.conf
-    content: |
-      Port 2224
