@@ -8,8 +8,7 @@ output "kubeone_api" {
 }
 
 output "ssh_commands" {
-  #  value = formatlist("ssh -J ${local.ssh_username}@%s", hcloud_server_network.control_plane[*].ip)
-  value = formatlist("ssh -J ${local.ssh_username}@%s ${local.ssh_username}@%s", data.hcloud_server.bastion.ipv4_address, hcloud_server_network.control_plane[*].ip)
+  value = formatlist("ssh -J ${local.ssh_username}@%s", hcloud_server_network.control_plane[*].ip)
 }
 
 output "kubeone_hosts" {
@@ -27,6 +26,9 @@ output "kubeone_hosts" {
       ssh_user         = local.ssh_username
       ssh_hosts_keys   = var.ssh_hosts_keys
       bastion_host_key = var.bastion_host_key
+      bastion          = data.hcloud_server.bastion.ipv4_address
+      bastion_user     = local.ssh_username
+      bastion_port     = 22
       untaint          = true
     }
   }
