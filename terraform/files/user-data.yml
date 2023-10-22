@@ -14,17 +14,5 @@ write_files:
     content: |
       [Resolve]
       DNS=185.12.64.2 185.12.64.1
-      #FallbackDNS=
-      #Domains=
-      #DNSSEC=no
-      #DNSOverTLS=no
-      #MulticastDNS=no
-      #LLMNR=no
-      #Cache=no-negative
-      #CacheFromLocalhost=no
-      #DNSStubListener=yes
-      #DNSStubListenerExtra=
-      #ReadEtcHosts=yes
-      #ResolveUnicastSingleLabel=no
 runcmd:
   - systemctl restart systemd-resolved.service

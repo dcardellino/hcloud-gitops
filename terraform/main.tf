@@ -14,7 +14,7 @@ resource "hcloud_firewall" "cluster" {
     direction   = "in"
     protocol    = "icmp"
     source_ips = [
-      "172.18.64.0/22",
+      "172.18.64.0/23",
     ]
   }
 
@@ -24,7 +24,7 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "tcp"
     port        = "any"
     source_ips = [
-      "172.18.64.0/22",
+      "172.18.64.0/23",
     ]
   }
 
@@ -34,7 +34,7 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "udp"
     port        = "any"
     source_ips = [
-      "172.18.64.0/22",
+      "172.18.64.0/23",
     ]
   }
 
@@ -42,9 +42,9 @@ resource "hcloud_firewall" "cluster" {
     description = "allow SSH from any"
     direction   = "in"
     protocol    = "tcp"
-    port        = "22"
+    port        = "23"
     source_ips = [
-      "172.18.64.0/22",
+      "172.18.64.0/23",
     ]
   }
 
@@ -54,7 +54,7 @@ resource "hcloud_firewall" "cluster" {
     protocol    = "tcp"
     port        = "30000-32767"
     source_ips = [
-      "172.18.64.0/22",
+      "172.18.64.0/23",
     ]
   }
 }
@@ -90,7 +90,7 @@ resource "hcloud_server" "control_plane" {
 
   network {
     network_id = data.hcloud_network.network.id
-    ip         = cidrhost("172.18.64.0/22", count.index + 3)
+    ip         = cidrhost("172.18.64.0/23", count.index + 3)
   }
 
   ssh_keys = [
