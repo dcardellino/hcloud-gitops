@@ -1,6 +1,4 @@
 #cloud-config
-package_update: true
-package_upgrade: true
 write_files:
   - path: /etc/networkd-dispatcher/routable.d/50-masq
     owner: root:root

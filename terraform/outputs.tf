@@ -8,7 +8,7 @@ output "kubeone_api" {
 }
 
 output "ssh_commands" {
-  value = formatlist("ssh -J ${local.ssh_username}@%s", hcloud_server_network.control_plane[*].ip)
+  value = formatlist("ssh -J ${local.ssh_username}@%s ${local.ssh_username}@%s", data.hcloud_server.bastion.ipv4_address, hcloud_server_network.control_plane[*].ip)
 }
 
 output "kubeone_hosts" {
