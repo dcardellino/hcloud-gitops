@@ -19,5 +19,10 @@ features:
     enable: true
 addons:
   enable: true
+  path: "./addons"
   addons:
     - name: default-storage-class
+operatingSystemManager:
+  deploy: false
+machineController:
+  deploy: false

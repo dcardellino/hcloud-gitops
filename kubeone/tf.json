@@ -1,0 +1,101 @@
+{
+  "kubeone_api": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "apiserver_alternative_names": [
+          "list",
+          "string"
+        ],
+        "endpoint": "string"
+      }
+    ],
+    "value": {
+      "apiserver_alternative_names": [],
+      "endpoint": "172.18.64.2"
+    }
+  },
+  "kubeone_hosts": {
+    "sensitive": false,
+    "type": [
+      "object",
+      {
+        "control_plane": [
+          "object",
+          {
+            "bastion": "string",
+            "bastion_host_key": "string",
+            "bastion_port": "number",
+            "bastion_user": "string",
+            "cloud_provider": "string",
+            "cluster_name": "string",
+            "hostnames": [
+              "tuple",
+              [
+                "string",
+                "string",
+                "string"
+              ]
+            ],
+            "network_id": "string",
+            "private_address": [
+              "tuple",
+              [
+                "string",
+                "string",
+                "string"
+              ]
+            ],
+            "ssh_agent_socket": "string",
+            "ssh_hosts_keys": [
+              "list",
+              "string"
+            ],
+            "ssh_port": "number",
+            "ssh_user": "string",
+            "untaint": "bool"
+          }
+        ]
+      }
+    ],
+    "value": {
+      "control_plane": {
+        "bastion": "91.107.192.66",
+        "bastion_host_key": null,
+        "bastion_port": 22,
+        "bastion_user": "root",
+        "cloud_provider": "hetzner",
+        "cluster_name": "ctec-k8s",
+        "hostnames": [
+          "ctec-k8s-node-01",
+          "ctec-k8s-node-02",
+          "ctec-k8s-node-03"
+        ],
+        "network_id": "cardellinotech",
+        "private_address": [
+          "172.18.64.3",
+          "172.18.64.4",
+          "172.18.64.5"
+        ],
+        "ssh_agent_socket": "env:SSH_AUTH_SOCK",
+        "ssh_hosts_keys": null,
+        "ssh_port": 22,
+        "ssh_user": "root",
+        "untaint": true
+      }
+    }
+  },
+  "ssh_commands": {
+    "sensitive": false,
+    "type": [
+      "list",
+      "string"
+    ],
+    "value": [
+      "ssh -J root@91.107.192.66 root@172.18.64.3",
+      "ssh -J root@91.107.192.66 root@172.18.64.4",
+      "ssh -J root@91.107.192.66 root@172.18.64.5"
+    ]
+  }
+}
