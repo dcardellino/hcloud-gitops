@@ -3,9 +3,8 @@
 apiVersion: monitoring.coreos.com/v1alpha1
 kind: AlertmanagerConfig
 metadata:
-  name: config-example
-  labels:
-    alertmanagerConfig: example
+  name: cardellinotech
+  namespace: monitoring
 spec:
   receivers:
   - name: 'slack'

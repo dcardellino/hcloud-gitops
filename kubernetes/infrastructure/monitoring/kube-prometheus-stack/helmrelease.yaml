@@ -32,6 +32,9 @@ spec:
       enabled: true
     cleanPrometheusOperatorObjectNames: true
     alertmanager:
+      alertmanagerSpec:
+        alertmanagerConfiguration:
+          name: cardellinotech
       ingress:
         enabled: false
     kubeProxy:
