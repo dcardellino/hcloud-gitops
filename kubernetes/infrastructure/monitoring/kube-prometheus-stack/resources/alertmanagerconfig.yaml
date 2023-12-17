@@ -1,0 +1,28 @@
+---
+---
+apiVersion: monitoring.coreos.com/v1alpha1
+kind: AlertmanagerConfig
+metadata:
+  name: config-example
+  labels:
+    alertmanagerConfig: example
+spec:
+  receivers:
+  - name: 'slack'
+    slackConfigs:
+    - apiURL:
+        name: alertmanager-secrets
+        key: slackApiURL
+  - name: 'null'
+  route:
+    groupBy: ['alertname', 'job']
+    groupWait: 30s
+    groupInterval: 5m
+    repeatInterval: 12h
+    receiver: 'slack'
+    routes:
+    - receiver: 'null'
+      matchers:
+      - matchType: '=~'
+        name: 'alertname'
+        value: 'InfoInhibitor'
