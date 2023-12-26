@@ -29,7 +29,7 @@ spec:
     keepHistory: false
   values:
     defaultBackend:
-      enabled: true
+      enabled: false
     controller:
       replicaCount: 3
       electionID: ingress-controller-leader-private
