@@ -42,7 +42,20 @@ spec:
     prometheus:
       ingress:
         enabled: false
+      resources:
+        requests:
+          memory: 512Mi
+          cpu: 250m
+        limits:
+          memory: 1024Mi
+          cpu: 500m
       prometheusSpec:
+        additionalScrapeConfigs:
+          - job_name: "node-exporter"
+            honor_timestamps: true
+            static_configs:
+              - targets:
+                  - 172.18.65.5:9100
         ruleSelectorNilUsesHelmValues: false
         serviceMonitorSelectorNilUsesHelmValues: false
         podMonitorSelectorNilUsesHelmValues: false
