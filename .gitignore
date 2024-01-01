@@ -64,3 +64,6 @@ kubeconfig
 *.key
 # Ansible
 .venv*
+
+kubeone/*.tar.gz
+kubeone/*kubeconfig*
