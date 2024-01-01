@@ -5,3 +5,4 @@ kind: Kustomization
 resources:
   - ./prometheus-community.yaml
   - ./ingress-nginx.yaml
+  - ./external-dns.yaml
